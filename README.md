@@ -94,22 +94,20 @@ Manual reporting is error-prone. The Alert Engine automates surveillance.
 
 ## 📸 Dashboard Screenshots
 
-*(Note: Replace these placeholders with actual screenshots)*
-
 **1. Executive Overview**
-> **[TODO: Add Screenshot of Dashboard Overview]**
+![Dashboard Overview](assets/Dashboard_Overview.png)
 
 **2. Market Risk Analytics**
-> **[TODO: Add Screenshot of Market Risk Page]**
+![Market Risk Analytics](assets/Market_Risk_Page.png)
 
 **3. Credit Risk & Probability of Default**
-> **[TODO: Add Screenshot of Credit Risk Page]**
+![Credit Risk Analytics](assets/Credit_Risk_Page.png)
 
 **4. Automated Alerts Engine**
-> **[TODO: Add Screenshot of Alerts Page]**
+![Alerts Engine](assets/Alerts_Page.png)
 
 **5. PDF Report Generation**
-> **[TODO: Add Screenshot of PDF Report output]**
+![PDF Report](assets/Report_output.png)
 
 ---
 
