@@ -46,7 +46,7 @@ def fetch_market_data(
         logger.info("Market data successfully fetched and cached.")
         return df
 
-    except Exception:
+    except Exception as e:  # noqa: BLE001
         logger.warning(f"Error fetching data from Yahoo Finance: {e}")
         logger.info("Attempting to load from local cache...")
         if cache_path.exists():
@@ -83,7 +83,7 @@ def fetch_fred_rates(series_id="DGS10", lookback_years=None):
     try:
         df = web.DataReader(series_id, "fred", start_date, end_date)
         return df.dropna()
-    except Exception:
+    except Exception as e:  # noqa: BLE001
         print(f"Warning: Could not fetch FRED data for {series_id}: {e}")
         return pd.DataFrame()
 
