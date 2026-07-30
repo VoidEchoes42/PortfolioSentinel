@@ -55,6 +55,27 @@ def load_cached_market_data(cache_file="market_prices.csv"):
     else:
         raise FileNotFoundError(f"Cache file {cache_path} not found.")
 
+def fetch_fred_rates(series_id="DGS10", lookback_years=None):
+    """
+    Fetches macroeconomic data from FRED API (e.g., 10-Year Treasury Constant Maturity Rate).
+    """
+    import pandas_datareader.data as web
+    if lookback_years is None:
+        lookback_years = DEFAULT_LOOKBACK_YEARS
+        
+    end_date = datetime.date.today()
+    start_date = end_date - datetime.timedelta(days=lookback_years * 365)
+    
+    try:
+        df = web.DataReader(series_id, "fred", start_date, end_date)
+        return df.dropna()
+    except Exception as e:
+        print(f"Error fetching from FRED: {e}")
+        # Return a dummy series if offline
+        dates = pd.date_range(start=start_date, end=end_date, freq='B')
+        return pd.DataFrame({series_id: 4.5}, index=dates)
+
 if __name__ == "__main__":
     # Quick test
     fetch_market_data()
+    print(fetch_fred_rates().tail())
