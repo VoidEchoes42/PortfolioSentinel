@@ -17,7 +17,9 @@ Analysts spend significant time gathering market data, calculating risk metrics,
 
 ---
 
-> **[TODO: Insert a 30-second GIF here showing: Filters -> Charts update -> Alert appears -> Export PDF -> Download Excel]**
+<video src="demo.mp4" controls="controls" muted="muted" style="max-height: 640px; width: 100%;">
+  Your browser does not support the video tag.
+</video>
 
 ---
 
