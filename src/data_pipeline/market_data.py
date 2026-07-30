@@ -37,8 +37,13 @@ def fetch_market_data(
                 df = df_raw["Adj Close"]
             elif "Adj Close" in df_raw.columns.get_level_values(1):
                 df = df_raw.xs("Adj Close", level=1, axis=1)
-            else:
+            elif "Close" in df_raw.columns.get_level_values(0):
+                df = df_raw["Close"]
+            elif "Close" in df_raw.columns.get_level_values(1):
                 df = df_raw.xs("Close", level=1, axis=1)
+            else:
+                # Absolute fallback if somehow neither exists (unlikely in yfinance)
+                df = df_raw.iloc[:, :len(tickers)]
         else:
             if "Adj Close" in df_raw.columns:
                 df = df_raw[["Adj Close"]]
