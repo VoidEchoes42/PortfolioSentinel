@@ -17,11 +17,7 @@ Analysts spend significant time gathering market data, calculating risk metrics,
 
 ---
 
----
 
-> **[TODO: Insert a Dashboard Screenshot or GIF here]**
-
----
 
 ## 🏗️ System Architecture
 
