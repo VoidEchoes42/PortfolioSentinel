@@ -30,7 +30,22 @@ def fetch_market_data(
         logger.info(
             f"Fetching market data for {len(tickers)} tickers from {start_date} to {end_date}..."
         )
-        df = yf.download(tickers, start=start_date, end=end_date)["Adj Close"]
+        df_raw = yf.download(tickers, start=start_date, end=end_date)
+        
+        if isinstance(df_raw.columns, pd.MultiIndex):
+            if "Adj Close" in df_raw.columns.get_level_values(0):
+                df = df_raw["Adj Close"]
+            elif "Adj Close" in df_raw.columns.get_level_values(1):
+                df = df_raw.xs("Adj Close", level=1, axis=1)
+            else:
+                df = df_raw.xs("Close", level=1, axis=1)
+        else:
+            if "Adj Close" in df_raw.columns:
+                df = df_raw[["Adj Close"]]
+            elif "Close" in df_raw.columns:
+                df = df_raw[["Close"]]
+            else:
+                df = df_raw
 
         # In case only one ticker is passed, yfinance returns a Series instead of a DataFrame
         if isinstance(df, pd.Series):
