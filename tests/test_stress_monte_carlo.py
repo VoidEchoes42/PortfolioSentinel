@@ -1,7 +1,7 @@
-import pytest
 import numpy as np
+
 from src.market_risk.monte_carlo import run_monte_carlo_simulation
-from src.market_risk.stress_testing import apply_stress_scenario, SCENARIOS
+from src.market_risk.stress_testing import apply_stress_scenario
 
 
 def test_monte_carlo_returns_correct_shape(sample_returns):

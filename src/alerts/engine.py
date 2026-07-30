@@ -1,5 +1,5 @@
-import pandas as pd
 from datetime import datetime
+
 from config.settings import THRESHOLDS
 
 
@@ -16,7 +16,7 @@ def check_market_alerts(market_metrics: dict) -> list:
                 "category": "Market Risk",
                 "severity": "Critical",
                 "message": f"Portfolio volatility has reached a critical level ({market_metrics['volatility']:.1%}).",
-                "timestamp": datetime.now().isoformat(),
+                "timestamp": datetime.now(datetime.timezone.utc).isoformat(),
             }
         )
     elif market_metrics.get("volatility", 0) > THRESHOLDS["volatility_warning"]:
@@ -25,7 +25,7 @@ def check_market_alerts(market_metrics: dict) -> list:
                 "category": "Market Risk",
                 "severity": "Warning",
                 "message": f"Portfolio volatility is elevated ({market_metrics['volatility']:.1%}).",
-                "timestamp": datetime.now().isoformat(),
+                "timestamp": datetime.now(datetime.timezone.utc).isoformat(),
             }
         )
 
@@ -35,7 +35,7 @@ def check_market_alerts(market_metrics: dict) -> list:
                 "category": "Market Risk",
                 "severity": "Critical",
                 "message": f"Severe portfolio drawdown detected ({market_metrics['drawdown']:.1%}).",
-                "timestamp": datetime.now().isoformat(),
+                "timestamp": datetime.now(datetime.timezone.utc).isoformat(),
             }
         )
 
@@ -45,7 +45,7 @@ def check_market_alerts(market_metrics: dict) -> list:
                 "category": "Market Risk",
                 "severity": "Warning",
                 "message": f"95% Value at Risk exceeds threshold ({market_metrics['var_95']:.1%}).",
-                "timestamp": datetime.now().isoformat(),
+                "timestamp": datetime.now(datetime.timezone.utc).isoformat(),
             }
         )
 
@@ -65,7 +65,7 @@ def check_credit_alerts(credit_metrics: dict) -> list:
                 "category": "Credit Risk",
                 "severity": "Warning",
                 "message": f"High sector concentration detected (HHI: {credit_metrics['hhi']:.3f}).",
-                "timestamp": datetime.now().isoformat(),
+                "timestamp": datetime.now(datetime.timezone.utc).isoformat(),
             }
         )
 
@@ -75,7 +75,7 @@ def check_credit_alerts(credit_metrics: dict) -> list:
                 "category": "Credit Risk",
                 "severity": "Warning",
                 "message": f"Watchlist has grown to {credit_metrics['watchlist_count']} borrowers.",
-                "timestamp": datetime.now().isoformat(),
+                "timestamp": datetime.now(datetime.timezone.utc).isoformat(),
             }
         )
 

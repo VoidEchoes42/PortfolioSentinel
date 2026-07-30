@@ -1,5 +1,4 @@
 import pandas as pd
-import numpy as np
 
 
 def calculate_hhi(exposures: pd.Series) -> float:

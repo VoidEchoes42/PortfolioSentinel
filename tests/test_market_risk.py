@@ -1,12 +1,12 @@
-import pytest
-import pandas as pd
 import numpy as np
+import pandas as pd
+
 from src.market_risk.returns import (
-    compute_daily_returns,
     compute_cumulative_returns,
+    compute_daily_returns,
     compute_drawdown,
 )
-from src.market_risk.var_cvar import historical_var, parametric_var, historical_cvar
+from src.market_risk.var_cvar import historical_cvar, historical_var, parametric_var
 from src.market_risk.volatility import compute_beta, rolling_volatility
 
 

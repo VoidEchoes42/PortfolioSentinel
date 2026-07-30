@@ -1,6 +1,3 @@
-import pandas as pd
-import numpy as np
-
 # Predefined Stress Scenarios (Shocks to specific sectors/asset classes)
 SCENARIOS = {
     "2008 Financial Crisis": {

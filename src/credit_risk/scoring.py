@@ -1,17 +1,17 @@
+import joblib
 import pandas as pd
-import numpy as np
 from sklearn.linear_model import LogisticRegression
-from sklearn.preprocessing import StandardScaler
-from sklearn.pipeline import Pipeline
-from sklearn.model_selection import train_test_split
 from sklearn.metrics import (
     accuracy_score,
-    roc_auc_score,
+    confusion_matrix,
     precision_score,
     recall_score,
-    confusion_matrix,
+    roc_auc_score,
 )
-import joblib
+from sklearn.model_selection import train_test_split
+from sklearn.pipeline import Pipeline
+from sklearn.preprocessing import StandardScaler
+
 from config.settings import MODELS_DIR
 
 FEATURES = [

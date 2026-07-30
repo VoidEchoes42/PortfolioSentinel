@@ -7,7 +7,7 @@ def run_monte_carlo_simulation(
     weights: np.ndarray,
     num_simulations: int = 1000,
     time_horizon: int = 21,
-    seed: int = None,
+    seed: int | None = None,
 ) -> dict:
     """
     Runs Monte Carlo simulation for portfolio losses.

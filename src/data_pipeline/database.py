@@ -1,6 +1,7 @@
 import sqlite3
-import pandas as pd
 from pathlib import Path
+
+import pandas as pd
 
 DB_PATH = (
     Path(__file__).resolve().parent.parent.parent
@@ -41,7 +42,7 @@ def init_db():
             """)
 
             conn.commit()
-        except Exception as e:
+        except sqlite3.Error as e:
             print(f"Database error during init_db: {e}")
 
 
@@ -57,7 +58,7 @@ def log_risk_snapshot(
                 (exposure, var_95, expected_loss, alerts_count),
             )
             conn.commit()
-        except Exception as e:
+        except sqlite3.Error as e:
             print(f"Database error during log_risk_snapshot: {e}")
 
 
@@ -81,7 +82,7 @@ def log_alerts(alerts: list):
                 )
 
             conn.commit()
-        except Exception as e:
+        except sqlite3.Error as e:
             print(f"Database error during log_alerts: {e}")
 
 
@@ -93,6 +94,6 @@ def load_alert_history():
                 "SELECT * FROM alert_history ORDER BY timestamp DESC", conn
             )
             return df
-        except Exception as e:
+        except sqlite3.Error as e:
             print(f"Database error during load_alert_history: {e}")
             return pd.DataFrame()

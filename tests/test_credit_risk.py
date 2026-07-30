@@ -1,13 +1,9 @@
-import pytest
-import pandas as pd
 import numpy as np
-from src.credit_risk.exposure import calculate_lgd, calculate_expected_loss
-from src.credit_risk.concentration import calculate_hhi, sector_concentration
-from src.credit_risk.scoring import (
-    train_credit_model,
-    predict_default_probability,
-    assign_credit_rating,
-)
+import pandas as pd
+
+from src.credit_risk.concentration import calculate_hhi
+from src.credit_risk.exposure import calculate_expected_loss, calculate_lgd
+from src.credit_risk.scoring import assign_credit_rating, train_credit_model
 from src.credit_risk.watchlist import generate_watchlist
 
 
@@ -66,7 +62,7 @@ def test_train_credit_model_returns_metrics(sample_credit_df):
     # Need enough data for a split - extend the sample
     big_df = pd.concat([sample_credit_df] * 20, ignore_index=True)
     big_df["default"] = np.random.choice([0, 1], size=len(big_df), p=[0.85, 0.15])
-    model, metrics = train_credit_model(big_df, save_model=False)
+    _model, metrics = train_credit_model(big_df, save_model=False)
     assert "accuracy" in metrics
     assert "roc_auc" in metrics
     assert 0 <= metrics["accuracy"] <= 1

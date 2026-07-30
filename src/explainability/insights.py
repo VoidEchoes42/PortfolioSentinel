@@ -1,5 +1,5 @@
-import pandas as pd
 import numpy as np
+import pandas as pd
 
 
 def feature_importance(model_pipeline, feature_names: list) -> pd.DataFrame:

@@ -1,21 +1,21 @@
 import streamlit as st
-import pandas as pd
-from src.data_pipeline.market_data import fetch_market_data, load_cached_market_data
-from src.data_pipeline.credit_data import load_credit_portfolio
-from src.data_pipeline.cleaning import clean_market_data, clean_credit_data
-from src.credit_risk.scoring import (
-    train_credit_model,
-    predict_default_probability,
-    assign_credit_rating,
-)
+
 from src.credit_risk.exposure import calculate_expected_loss
+from src.credit_risk.scoring import (
+    assign_credit_rating,
+    predict_default_probability,
+    train_credit_model,
+)
+from src.data_pipeline.cleaning import clean_credit_data, clean_market_data
+from src.data_pipeline.credit_data import load_credit_portfolio
+from src.data_pipeline.market_data import fetch_market_data, load_cached_market_data
 
 
 @st.cache_data(show_spinner="Loading market data...")
 def get_market_data():
     try:
         df = fetch_market_data()
-    except Exception:
+    except Exception:  # noqa: BLE001
         df = load_cached_market_data()
     return clean_market_data(df)
 

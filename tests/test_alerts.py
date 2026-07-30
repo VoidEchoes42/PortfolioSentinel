@@ -1,5 +1,4 @@
-import pytest
-from src.alerts.engine import check_market_alerts, check_credit_alerts, get_top_risks
+from src.alerts.engine import check_credit_alerts, check_market_alerts, get_top_risks
 
 
 def test_market_alert_critical_volatility():

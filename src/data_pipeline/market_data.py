@@ -1,9 +1,10 @@
-import yfinance as yf
-import pandas as pd
 import datetime
 import logging
-from pathlib import Path
-from config.settings import MARKET_TICKERS, PROCESSED_DATA_DIR, DEFAULT_LOOKBACK_YEARS
+
+import pandas as pd
+import yfinance as yf
+
+from config.settings import DEFAULT_LOOKBACK_YEARS, MARKET_TICKERS, PROCESSED_DATA_DIR
 
 logger = logging.getLogger(__name__)
 
@@ -22,7 +23,7 @@ def fetch_market_data(
 
     cache_path = PROCESSED_DATA_DIR / cache_file
 
-    end_date = datetime.date.today()
+    end_date = datetime.datetime.now(datetime.timezone.utc).date()
     start_date = end_date - datetime.timedelta(days=lookback_years * 365)
 
     try:
@@ -45,7 +46,7 @@ def fetch_market_data(
         logger.info("Market data successfully fetched and cached.")
         return df
 
-    except Exception as e:
+    except Exception:
         logger.warning(f"Error fetching data from Yahoo Finance: {e}")
         logger.info("Attempting to load from local cache...")
         if cache_path.exists():
@@ -76,13 +77,13 @@ def fetch_fred_rates(series_id="DGS10", lookback_years=None):
     if lookback_years is None:
         lookback_years = DEFAULT_LOOKBACK_YEARS
 
-    end_date = datetime.date.today()
+    end_date = datetime.datetime.now(datetime.timezone.utc).date()
     start_date = end_date - datetime.timedelta(days=lookback_years * 365)
 
     try:
         df = web.DataReader(series_id, "fred", start_date, end_date)
         return df.dropna()
-    except Exception as e:
+    except Exception:
         print(f"Warning: Could not fetch FRED data for {series_id}: {e}")
         return pd.DataFrame()
 

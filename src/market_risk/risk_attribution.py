@@ -1,5 +1,5 @@
-import pandas as pd
 import numpy as np
+import pandas as pd
 
 
 def risk_contribution(returns: pd.DataFrame, weights: np.ndarray) -> pd.Series:

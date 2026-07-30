@@ -1,5 +1,4 @@
 import pandas as pd
-import numpy as np
 
 
 def calculate_lgd(has_collateral: int, sector: str) -> float:
