@@ -13,6 +13,7 @@ def sample_prices():
 @pytest.fixture
 def sample_returns(sample_prices):
     from src.market_risk.returns import compute_daily_returns
+
     return compute_daily_returns(sample_prices)
 
 
