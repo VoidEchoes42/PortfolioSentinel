@@ -46,7 +46,7 @@ with tab1:
     with col2:
         st.subheader("Drawdown Analysis")
         drawdown = compute_drawdown(market_df)
-        fig2 = px.area(
+        fig2 = px.line(
             drawdown,
             template="plotly_dark",
             color_discrete_sequence=px.colors.qualitative.Pastel,
