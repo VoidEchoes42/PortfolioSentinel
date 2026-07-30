@@ -5,7 +5,7 @@
 ![Pandas](https://img.shields.io/badge/Pandas-2.0+-150458.svg)
 ![Build](https://github.com/VoidEchoes42/PortfolioSentinel/actions/workflows/ci.yml/badge.svg)
 
-**PortfolioSentinel** is a production-grade, end-to-end risk analytics dashboard designed for banking and investment portfolio monitoring. It integrates market risk, credit risk modeling, scenario analysis, and an automated alerting system into a stakeholder-ready UI.
+**PortfolioSentinel** is a risk analytics dashboard designed for banking and investment portfolio monitoring. It integrates market risk, credit risk modeling, scenario analysis, and an automated alerting system into a stakeholder-ready UI.
 
 ## 🚀 Key Features
 
@@ -19,7 +19,7 @@
 - **Probability of Default (PD) Modeling**: Machine learning pipeline (Logistic Regression) predicting borrower default based on financial health ratios.
 - **Expected Credit Loss (ECL)**: Calculates Exposure at Default (EAD) and Loss Given Default (LGD) mapped to sector and collateral.
 - **Concentration Risk**: Evaluates sector-level exposure using the Herfindahl-Hirschman Index (HHI).
-- **Borrower Intelligence**: Generates explainable AI insights on why specific borrowers are flagged for high risk.
+- **Borrower Analysis**: Generates risk factor commentary based on financial ratio thresholds on why specific borrowers are flagged for high risk.
 
 ### 🚨 Automation & Reporting
 - **Alert Engine**: Actively monitors portfolios against configurable thresholds (VaR breaches, volatility spikes, PD degradation).

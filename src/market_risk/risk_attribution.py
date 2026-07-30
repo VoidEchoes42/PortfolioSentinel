@@ -27,7 +27,7 @@ def marginal_var(returns: pd.DataFrame, weights: np.ndarray, confidence: float =
     """
     from scipy.stats import norm
     
-    cov_matrix = returns.cov()
+    cov_matrix = returns.cov() * 252
     portfolio_vol = np.sqrt(weights.T @ cov_matrix @ weights)
     
     z_score = norm.ppf(1 - confidence)

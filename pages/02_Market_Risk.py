@@ -11,6 +11,11 @@ from src.market_risk.monte_carlo import run_monte_carlo_simulation
 
 st.set_page_config(page_title="Market Risk - PortfolioSentinel", layout="wide")
 
+try:
+    with open("assets/style.css") as f:
+        st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
+except FileNotFoundError: pass
+
 st.title("📈 Market Risk Analytics")
 
 with st.spinner("Loading market data..."):

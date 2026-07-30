@@ -17,13 +17,13 @@ def generate_watchlist(credit_df: pd.DataFrame) -> pd.DataFrame:
             reasons.append(f"High PD ({row['pd']:.1%})")
             
         # Financial Health Warnings
-        if row["leverage_ratio"] > 6.0:
+        if row["leverage_ratio"] > THRESHOLDS.get("leverage_warning", 6.0):
             reasons.append(f"High Leverage ({row['leverage_ratio']:.1f}x)")
             
-        if row["interest_coverage"] < 1.5:
+        if row["interest_coverage"] < THRESHOLDS.get("interest_coverage_warning", 1.5):
             reasons.append(f"Weak Interest Coverage ({row['interest_coverage']:.1f}x)")
             
-        if row["revenue_growth"] < -0.10:
+        if row["revenue_growth"] < THRESHOLDS.get("revenue_growth_warning", -0.10):
             reasons.append(f"Declining Revenue ({row['revenue_growth']:.1%})")
             
         if len(reasons) >= 2 or (row.get("pd", 0) > THRESHOLDS["pd_warning"]):

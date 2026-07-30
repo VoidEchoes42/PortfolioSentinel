@@ -1,7 +1,7 @@
 import streamlit as st
 import pandas as pd
 from src.data_pipeline.database import load_alert_history, init_db
-from src.reporting.export import export_alerts_to_excel
+from src.reporting.export import export_alerts_to_excel, export_risk_report_pdf
 
 st.set_page_config(page_title="Alerts - PortfolioSentinel", layout="wide")
 
@@ -50,4 +50,18 @@ else:
             data=excel_data,
             file_name="active_alerts.xlsx",
             mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+        )
+        
+        pdf_metrics = {
+            "total_exposure": 0,
+            "var_95": 0,
+            "expected_loss": 0,
+            "summary_text": f"{len(filtered_df)} alerts currently active."
+        }
+        pdf_data = export_risk_report_pdf(pdf_metrics, filtered_df.to_dict('records'))
+        st.download_button(
+            label="📄 Download PDF Report",
+            data=pdf_data,
+            file_name="risk_report.pdf",
+            mime="application/pdf"
         )

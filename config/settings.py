@@ -1,4 +1,3 @@
-import os
 from pathlib import Path
 
 # Base Paths
@@ -43,7 +42,10 @@ THRESHOLDS = {
     "var_95_critical": 0.05,          # 5% 1-day VaR
     "pd_warning": 0.10,               # 10% Probability of Default
     "pd_critical": 0.15,              # 15% Probability of Default
-    "hhi_concentration": 0.25         # Herfindahl-Hirschman Index > 0.25 is highly concentrated
+    "hhi_concentration": 0.25,        # HHI > 0.25 = highly concentrated
+    "leverage_warning": 6.0,          # Debt/EBITDA above 6x
+    "interest_coverage_warning": 1.5, # EBITDA/Interest below 1.5x
+    "revenue_growth_warning": -0.10   # Revenue declining > 10%
 }
 
 # UI Settings

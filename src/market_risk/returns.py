@@ -1,12 +1,9 @@
 import pandas as pd
 import numpy as np
 
-def compute_daily_returns(prices: pd.DataFrame, log_returns: bool = False) -> pd.DataFrame:
+def compute_daily_returns(prices: pd.DataFrame) -> pd.DataFrame:
     """Computes daily returns from price series."""
-    if log_returns:
-        return np.log(prices / prices.shift(1)).dropna()
-    else:
-        return prices.pct_change().dropna()
+    return prices.pct_change().dropna()
 
 def compute_cumulative_returns(returns: pd.DataFrame) -> pd.DataFrame:
     """Computes cumulative product of returns."""

@@ -17,8 +17,8 @@ def clean_market_data(df: pd.DataFrame) -> pd.DataFrame:
     # Forward fill missing daily prices (e.g., trading halts)
     df.ffill(inplace=True)
     
-    # Backward fill for any leading NaNs
-    df.bfill(inplace=True)
+    # Only forward-fill to avoid look-ahead bias; drop any remaining leading gaps
+    df.dropna(inplace=True)
     
     return df
 

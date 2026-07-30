@@ -21,14 +21,14 @@ def feature_importance(model_pipeline, feature_names: list) -> pd.DataFrame:
 def generate_portfolio_summary(market_vol: float, market_var: float, credit_el: float, active_alerts: int) -> str:
     """Generates an executive summary of the portfolio's current risk profile."""
     
-    summary = f"The portfolio currently exhibits an annualized volatility of {market_vol:.1%}, with a 1-day 95% Value at Risk of {market_var:.1%}. "
+    summary = f"Portfolio vol is running at {market_vol:.1%}, with a 1-day 95% Value at Risk of {market_var:.1%}. "
     
     if active_alerts > 0:
         summary += f"There are {active_alerts} active risk alerts requiring attention. "
     else:
-        summary += "Risk metrics remain within normal operating thresholds. "
+        summary += "All risk metrics are within limits. "
         
-    summary += f"On the credit side, the expected loss across the corporate lending book stands at ${credit_el:,.0f}."
+    summary += f"Credit book EL is ${credit_el:,.0f}."
     
     return summary
 
@@ -43,7 +43,7 @@ def generate_credit_insight(borrower_row: pd.Series) -> str:
         reasons.append("declining revenue")
         
     if not reasons:
-        return f"Borrower {borrower_row.get('borrower_id', 'Unknown')} maintains an acceptable credit profile."
+        return f"Borrower {borrower_row.get('borrower_id', 'Unknown')} looks fine — no flags raised."
         
     reason_text = ", ".join(reasons[:-1]) + (" and " + reasons[-1] if len(reasons) > 1 else reasons[0])
-    return f"Borrower {borrower_row.get('borrower_id', 'Unknown')} exhibits elevated default risk primarily driven by {reason_text}."
+    return f"Borrower {borrower_row.get('borrower_id', 'Unknown')} is flagged for {reason_text}."

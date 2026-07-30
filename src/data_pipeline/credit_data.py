@@ -45,7 +45,7 @@ def generate_credit_portfolio(n_borrowers=200, seed=42, output_file="credit_port
     exposure = np.random.lognormal(mean=15, sigma=1.5, size=n_borrowers) # ~ $3M mean
     
     # Generate Synthetic Default Target (Binary)
-    # We create a hidden linear combination of features to determine default probability
+    # Construct a risk score from financial ratios to set up the binary default target
     # Higher leverage, lower coverage, lower current ratio, negative growth increase risk
     risk_score = (
         0.5 * leverage 

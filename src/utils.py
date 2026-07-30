@@ -14,7 +14,7 @@ def get_market_data():
         df = load_cached_market_data()
     return clean_market_data(df)
 
-@st.cache_data(show_spinner="Loading credit portfolio...")
+@st.cache_resource(show_spinner="Loading credit portfolio...")
 def get_credit_data():
     df = load_credit_portfolio()
     df = clean_credit_data(df)

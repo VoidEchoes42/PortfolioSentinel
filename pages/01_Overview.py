@@ -8,13 +8,14 @@ from src.alerts.engine import check_market_alerts, check_credit_alerts, get_top_
 from src.credit_risk.concentration import calculate_hhi
 from src.credit_risk.watchlist import generate_watchlist
 from src.explainability.insights import generate_portfolio_summary
+from src.data_pipeline.database import init_db, log_alerts, log_risk_snapshot
 
 st.set_page_config(page_title="Overview - PortfolioSentinel", layout="wide")
 
 try:
     with open("assets/style.css") as f:
         st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
-except: pass
+except FileNotFoundError: pass
 
 st.title("Executive Overview")
 
@@ -42,6 +43,11 @@ with st.spinner("Loading analytics..."):
     cred_metrics = {"hhi": sector_hhi, "watchlist_count": len(watchlist)}
     
     all_alerts = check_market_alerts(mkt_metrics) + check_credit_alerts(cred_metrics)
+    
+    # Persist alerts and risk snapshot to SQLite
+    init_db()
+    log_alerts(all_alerts)
+    log_risk_snapshot(total_exposure, var_95, total_el, len(all_alerts))
     top_risks = get_top_risks(all_alerts, 3)
 
 # --- KPI ROW ---

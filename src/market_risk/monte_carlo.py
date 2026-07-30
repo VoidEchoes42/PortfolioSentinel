@@ -1,7 +1,7 @@
 import numpy as np
 import pandas as pd
 
-def run_monte_carlo_simulation(returns: pd.DataFrame, weights: np.ndarray, num_simulations: int = 1000, time_horizon: int = 21) -> dict:
+def run_monte_carlo_simulation(returns: pd.DataFrame, weights: np.ndarray, num_simulations: int = 1000, time_horizon: int = 21, seed: int = None) -> dict:
     """
     Runs Monte Carlo simulation for portfolio losses.
     Assumes multivariate normal distribution of returns.
@@ -10,7 +10,8 @@ def run_monte_carlo_simulation(returns: pd.DataFrame, weights: np.ndarray, num_s
     mean_returns = returns.mean().values
     
     # Simulate random daily returns for the given time horizon
-    np.random.seed(42)
+    if seed is not None:
+        np.random.seed(seed)
     # Generate (num_simulations, time_horizon, num_assets)
     sim_returns = np.random.multivariate_normal(mean_returns, cov_matrix, (num_simulations, time_horizon))
     

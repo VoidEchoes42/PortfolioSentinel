@@ -60,7 +60,7 @@ def apply_stress_scenario(portfolio_weights: dict, sector_mapping: dict, scenari
     
     for ticker, weight in portfolio_weights.items():
         sector = sector_mapping.get(ticker, "Unknown")
-        shock = shocks.get(sector, 0.0) # 0 shock if sector not in scenario
+        shock = shocks.get(sector, -0.10)  # conservative market-wide fallback
         asset_loss = weight * shock
         
         stressed_returns[ticker] = {
