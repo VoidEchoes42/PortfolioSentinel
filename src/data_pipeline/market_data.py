@@ -31,7 +31,7 @@ def fetch_market_data(
             f"Fetching market data for {len(tickers)} tickers from {start_date} to {end_date}..."
         )
         df_raw = yf.download(tickers, start=start_date, end=end_date)
-        
+
         if isinstance(df_raw.columns, pd.MultiIndex):
             if "Adj Close" in df_raw.columns.get_level_values(0):
                 df = df_raw["Adj Close"]
@@ -43,7 +43,7 @@ def fetch_market_data(
                 df = df_raw.xs("Close", level=1, axis=1)
             else:
                 # Absolute fallback if somehow neither exists (unlikely in yfinance)
-                df = df_raw.iloc[:, :len(tickers)]
+                df = df_raw.iloc[:, : len(tickers)]
         else:
             if "Adj Close" in df_raw.columns:
                 df = df_raw[["Adj Close"]]
