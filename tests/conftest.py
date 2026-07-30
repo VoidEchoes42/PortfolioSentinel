@@ -11,6 +11,12 @@ def sample_prices():
 
 
 @pytest.fixture
+def sample_returns(sample_prices):
+    from src.market_risk.returns import compute_daily_returns
+    return compute_daily_returns(sample_prices)
+
+
+@pytest.fixture
 def sample_credit_df():
     data = {
         "borrower_id": ["B001", "B002", "B003"],
@@ -18,7 +24,10 @@ def sample_credit_df():
         "exposure": [1000000, 500000, 2000000],
         "leverage_ratio": [3.5, 7.2, 2.1],
         "interest_coverage": [5.1, 1.2, 8.4],
+        "current_ratio": [1.5, 0.8, 2.1],
         "revenue_growth": [0.15, -0.05, 0.25],
+        "years_in_business": [10, 3, 25],
+        "has_collateral": [1, 0, 1],
         "pd": [0.01, 0.08, 0.005],
         "rating": ["A", "CCC", "AA"],
     }

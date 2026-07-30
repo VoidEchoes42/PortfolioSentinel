@@ -12,8 +12,8 @@ from src.market_risk.volatility import compute_beta, rolling_volatility
 
 def test_compute_daily_returns(sample_prices):
     returns = compute_daily_returns(sample_prices)
-    assert len(returns) == 29  # 30 prices -> 29 returns
-    assert returns.shape[1] == 2
+    assert len(returns) == len(sample_prices) - 1
+    assert returns.shape[1] == 3
 
 
 def test_cumulative_returns_start_near_zero(sample_returns):
