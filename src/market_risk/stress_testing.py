@@ -12,7 +12,7 @@ SCENARIOS = {
         "Industrials": -0.35,
         "Utilities": -0.15,
         "Consumer Cyclical": -0.30,
-        "Bonds": 0.10  # Flight to safety
+        "Bonds": 0.10,  # Flight to safety
     },
     "COVID-19 Crash": {
         "Financials": -0.35,
@@ -23,27 +23,26 @@ SCENARIOS = {
         "Industrials": -0.35,
         "Utilities": -0.25,
         "Consumer Cyclical": -0.40,
-        "Bonds": 0.05
+        "Bonds": 0.05,
     },
     "Tech Sector Selloff": {
         "Technology": -0.35,
         "Consumer Cyclical": -0.15,
-        "Bonds": 0.02
+        "Bonds": 0.02,
     },
     "Rate Shock (+200bps)": {
         "Bonds": -0.15,
         "Technology": -0.20,
         "Utilities": -0.20,
-        "Financials": 0.05  # Banks might benefit from net interest margin initially
+        "Financials": 0.05,  # Banks might benefit from net interest margin initially
     },
-    "Energy Crisis": {
-        "Energy": -0.40,
-        "Industrials": -0.15,
-        "Utilities": -0.10
-    }
+    "Energy Crisis": {"Energy": -0.40, "Industrials": -0.15, "Utilities": -0.10},
 }
 
-def apply_stress_scenario(portfolio_weights: dict, sector_mapping: dict, scenario_name: str) -> dict:
+
+def apply_stress_scenario(
+    portfolio_weights: dict, sector_mapping: dict, scenario_name: str
+) -> dict:
     """
     Applies a predefined stress scenario to the portfolio.
     portfolio_weights: dict of ticker -> weight
@@ -52,27 +51,27 @@ def apply_stress_scenario(portfolio_weights: dict, sector_mapping: dict, scenari
     """
     if scenario_name not in SCENARIOS:
         raise ValueError(f"Scenario '{scenario_name}' not found.")
-        
+
     shocks = SCENARIOS[scenario_name]
-    
+
     stressed_returns = {}
     portfolio_loss = 0.0
-    
+
     for ticker, weight in portfolio_weights.items():
         sector = sector_mapping.get(ticker, "Unknown")
         shock = shocks.get(sector, -0.10)  # conservative market-wide fallback
         asset_loss = weight * shock
-        
+
         stressed_returns[ticker] = {
             "Sector": sector,
             "Weight": weight,
             "Shock": shock,
-            "Contribution to Portfolio Return": asset_loss
+            "Contribution to Portfolio Return": asset_loss,
         }
         portfolio_loss += asset_loss
-        
+
     return {
         "scenario": scenario_name,
         "total_portfolio_return": portfolio_loss,
-        "asset_details": stressed_returns
+        "asset_details": stressed_returns,
     }

@@ -3,7 +3,11 @@ import pandas as pd
 import numpy as np
 from src.credit_risk.exposure import calculate_lgd, calculate_expected_loss
 from src.credit_risk.concentration import calculate_hhi, sector_concentration
-from src.credit_risk.scoring import train_credit_model, predict_default_probability, assign_credit_rating
+from src.credit_risk.scoring import (
+    train_credit_model,
+    predict_default_probability,
+    assign_credit_rating,
+)
 from src.credit_risk.watchlist import generate_watchlist
 
 
@@ -23,12 +27,14 @@ def test_lgd_floor():
 
 
 def test_expected_loss_formula():
-    df = pd.DataFrame({
-        "pd": [0.10],
-        "exposure": [1_000_000],
-        "has_collateral": [1],
-        "sector": ["Financials"]
-    })
+    df = pd.DataFrame(
+        {
+            "pd": [0.10],
+            "exposure": [1_000_000],
+            "has_collateral": [1],
+            "sector": ["Financials"],
+        }
+    )
     el_df = calculate_expected_loss(df)
     # LGD = 0.45 - 0.20 - 0.05 = 0.20
     # EL = 0.10 * 1,000,000 * 0.20 = 20,000
@@ -67,15 +73,17 @@ def test_train_credit_model_returns_metrics(sample_credit_df):
 
 
 def test_watchlist_flags_risky_borrowers():
-    df = pd.DataFrame({
-        "borrower_id": ["B_001"],
-        "sector": ["Tech"],
-        "leverage_ratio": [8.0],
-        "interest_coverage": [1.0],
-        "revenue_growth": [-0.20],
-        "exposure": [1_000_000],
-        "pd": [0.20],
-        "rating": ["CCC"]
-    })
+    df = pd.DataFrame(
+        {
+            "borrower_id": ["B_001"],
+            "sector": ["Tech"],
+            "leverage_ratio": [8.0],
+            "interest_coverage": [1.0],
+            "revenue_growth": [-0.20],
+            "exposure": [1_000_000],
+            "pd": [0.20],
+            "rating": ["CCC"],
+        }
+    )
     watchlist = generate_watchlist(df)
     assert len(watchlist) >= 1

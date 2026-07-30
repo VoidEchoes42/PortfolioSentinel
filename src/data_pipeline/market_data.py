@@ -7,7 +7,10 @@ from config.settings import MARKET_TICKERS, PROCESSED_DATA_DIR, DEFAULT_LOOKBACK
 
 logger = logging.getLogger(__name__)
 
-def fetch_market_data(tickers=None, lookback_years=None, cache_file="market_prices.csv"):
+
+def fetch_market_data(
+    tickers=None, lookback_years=None, cache_file="market_prices.csv"
+):
     """
     Fetches daily adjusted close prices for given tickers.
     Uses caching to avoid repeated API calls.
@@ -23,13 +26,15 @@ def fetch_market_data(tickers=None, lookback_years=None, cache_file="market_pric
     start_date = end_date - datetime.timedelta(days=lookback_years * 365)
 
     try:
-        logger.info(f"Fetching market data for {len(tickers)} tickers from {start_date} to {end_date}...")
+        logger.info(
+            f"Fetching market data for {len(tickers)} tickers from {start_date} to {end_date}..."
+        )
         df = yf.download(tickers, start=start_date, end=end_date)["Adj Close"]
-        
+
         # In case only one ticker is passed, yfinance returns a Series instead of a DataFrame
         if isinstance(df, pd.Series):
             df = df.to_frame(name=tickers[0])
-            
+
         # Ensure we have all requested tickers in columns
         missing_tickers = [t for t in tickers if t not in df.columns]
         if missing_tickers:
@@ -48,7 +53,10 @@ def fetch_market_data(tickers=None, lookback_years=None, cache_file="market_pric
             logger.info("Successfully loaded market data from cache.")
             return df
         else:
-            raise FileNotFoundError("No local cache found and API request failed. Check internet connection.")
+            raise FileNotFoundError(
+                "No local cache found and API request failed. Check internet connection."
+            )
+
 
 def load_cached_market_data(cache_file="market_prices.csv"):
     """Loads market data strictly from cache."""
@@ -58,23 +66,26 @@ def load_cached_market_data(cache_file="market_prices.csv"):
     else:
         raise FileNotFoundError(f"Cache file {cache_path} not found.")
 
+
 def fetch_fred_rates(series_id="DGS10", lookback_years=None):
     """
     Fetches macroeconomic data from FRED API (e.g., 10-Year Treasury Constant Maturity Rate).
     """
     import pandas_datareader.data as web
+
     if lookback_years is None:
         lookback_years = DEFAULT_LOOKBACK_YEARS
-        
+
     end_date = datetime.date.today()
     start_date = end_date - datetime.timedelta(days=lookback_years * 365)
-    
+
     try:
         df = web.DataReader(series_id, "fred", start_date, end_date)
         return df.dropna()
     except Exception as e:
         print(f"Warning: Could not fetch FRED data for {series_id}: {e}")
         return pd.DataFrame()
+
 
 if __name__ == "__main__":
     # Quick test

@@ -7,6 +7,7 @@ st.set_page_config(
     initial_sidebar_state="expanded",
 )
 
+
 # Load CSS
 def load_css():
     try:
@@ -14,6 +15,7 @@ def load_css():
             st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
     except FileNotFoundError:
         pass
+
 
 load_css()
 
